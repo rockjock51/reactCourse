@@ -2,7 +2,7 @@
 
 Learning React via Udemy for #100DaysOfCode
 
-Initially, I'll be following this Udemy course:
+Initially, I'll be continuing this Udemy course:
 
 https://www.udemy.com/react-2nd-edition/
 
