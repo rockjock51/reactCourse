@@ -1,10 +1,11 @@
 {
     "dependencies": {
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-react": "^6.24.1",
-        "eslint-plugin-prettier": "^3.0.1",
-        "global": "^4.3.2",
-        "prettier": "^1.16.4"
+        "global": "^4.3.2"
+    },
+    "scripts": {
+        "serve": "live-server public/",
+        "build": "webpack --watch",
+        "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
     },
     "name": "indecision-app",
     "version": "1.0.0",
@@ -12,8 +13,16 @@
     "author": "Rocky Green",
     "license": "MIT",
     "devDependencies": {
+        "babel-cli": "^6.26.0",
         "babel-eslint": "^10.0.1",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
         "eslint": "^5.14.1",
-        "eslint-config-google": "^0.12.0"
+        "eslint-config-google": "^0.12.0",
+        "eslint-plugin-prettier": "^3.0.1",
+        "live-server": "^1.2.1",
+        "prettier": "^1.16.4",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0"
     }
 }
