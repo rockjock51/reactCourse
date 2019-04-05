@@ -1,9 +1,6 @@
-//import "./utils.js";
-import { isAdult, canDrink } from "./person.js";
+import React from "react";
+import ReactDOM from "react-dom";
 
-console.log("app.js is running!!");
+const template = <p>testing 123456</p>;
 
-console.log(isAdult(5));
-console.log(isAdult(50));
-console.log(canDrink(20));
-console.log(canDrink(25));
+ReactDOM.render(template, document.getElementById("app"));
