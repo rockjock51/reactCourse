@@ -19,7 +19,7 @@
         "build": "webpack",
         "dev-server": "webpack-dev-server"
     },
-    "name": "indecision-app",
+    "name": "boilerplate",
     "version": "1.0.0",
     "main": "index.js",
     "author": "Rocky Green",
