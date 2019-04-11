@@ -1,3 +1,6 @@
 import React from "react";
 
-export default () => <div>This is from the edit page</div>;
+export default (props) => {
+    console.log(props);
+    return <div>Editing the expense of Id of {props.match.params.id}</div>;
+};
