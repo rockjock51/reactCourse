@@ -1,55 +1,73 @@
-import moment from "moment";
+import expensesReducer from "../../reducers/expenses";
 
-import filtersReducer from "../../reducers/filters";
+import expenses from "../fixtures/expenses";
 
-test("should setup default filter values", () => {
-  const state = filtersReducer(undefined, { type: "@@INIT" });
-  expect(state).toEqual({
-    text: "",
-    sortBy: "date",
-    startDate: moment().startOf("month"),
-    endDate: moment().endOf("month")
-  });
+test("should set default state", () => {
+  const state = expensesReducer(undefined, { type: "@@INIT" });
+  expect(state).toEqual([]);
 });
 
-test("should set sortBy to amount", () => {
-  const state = filtersReducer(undefined, { type: "SORT_BY_AMOUNT" });
-  expect(state.sortBy).toBe("amount");
-});
-
-test("should set sortBy to date", () => {
-  const currentState = {
-    text: "",
-    sortBy: "amount",
-    startDate: moment().startOf("month"),
-    endDate: moment().endOf("month")
+test("should remove expense by id", () => {
+  const action = {
+    type: "REMOVE_EXPENSE",
+    id: expenses[1].id
   };
-  const action = { type: "SORT_BY_DATE" };
-
-  const state = filtersReducer(currentState, action);
-  expect(state.sortBy).toBe("date");
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual([expenses[0], expenses[2]]);
 });
 
-test("should set text filter", () => {
-  const state = filtersReducer(undefined, {
-    type: "SET_TEXT_FILTER",
-    text: "123abc"
-  });
-  expect(state.text).toBe("123abc");
+test("should not remove expenses if id not found", () => {
+  const action = {
+    type: "REMOVE_EXPENSE",
+    id: -1
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual(expenses);
 });
 
-test("should set startDate filter", () => {
-  const state = filtersReducer(undefined, {
-    type: "SET_START_DATE",
-    startDate: moment(10000)
-  });
-  expect(state.startDate).toEqual(moment(10000));
+test("should add expense", () => {
+  const action = {
+    type: "ADD_EXPENSE",
+    expense: {
+      description: "Coke",
+      amount: 195,
+      note: "",
+      createdAt: 10000,
+      id: 4
+    }
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual([
+    ...expenses,
+    {
+      description: "Coke",
+      amount: 195,
+      note: "",
+      createdAt: 10000,
+      id: 4
+    }
+  ]);
 });
 
-test("should set endDate filter", () => {
-  const state = filtersReducer(undefined, {
-    type: "SET_END_DATE",
-    endDate: moment(10000)
-  });
-  expect(state.endDate).toEqual(moment(10000));
+test("should edit an expense", () => {
+  const note = "Testing!";
+  const action = {
+    type: "EDIT_EXPENSE",
+    id: expenses[2].id,
+    updates: {
+      note
+    }
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual([
+    expenses[0],
+    expenses[1],
+    { ...expenses[2], note: "Testing!" }
+  ]);
+});
+
+test("should not edit an expense if expense not found", () => {
+  const action = { type: "EDIT_EXPENSE", id: -1 };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual(expenses);
 });
